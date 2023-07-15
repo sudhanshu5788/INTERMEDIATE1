@@ -1,10 +1,11 @@
-# Hello World
+# INTERMEDIATE PROJECT 
 
-This Solidity program is a simple "Hello World" program that demonstrates the basic syntax and functionality of the Solidity programming language. The purpose of this program is to serve as a starting point for those who are new to Solidity and want to get a feel for how it works.
+This Solidity program is an example of using revert, assert and require implementation. In this program we have used theses for different fuctionality
+and this shows the use and working of these keywords or error handling methods.
 
 ## Description
 
-This program is a simple contract written in Solidity, a programming language used for developing smart contracts on the Ethereum blockchain. The contract has a single function that returns the string "Hello World!". This program serves as a simple and straightforward introduction to Solidity programming, and can be used as a stepping stone for more complex projects in the future.
+This program is a simple contract written in Solidity, and in this program we have created different functions that can actually mint and also burn but at the same time we used revert assert and require in this and provided different conditions to that so that we can learn it implementing with actual programs and practically it is more helpful for us.
 
 ## Getting Started
 
@@ -15,28 +16,40 @@ To run this program, you can use Remix, an online Solidity IDE. To get started, 
 Once you are on the Remix website, create a new file by clicking on the "+" icon in the left-hand sidebar. Save the file with a .sol extension (e.g., HelloWorld.sol). Copy and paste the following code into the file:
 
 ```javascript
-pragma solidity ^0.8.4;
+pragma solidity 0.8.18;
+contract MyToken {
 
-contract HelloWorld {
-    function sayHello() public pure returns (string memory) {
-        return "Hello World!";
+  string public tokname = "SUDHANSHU";
+  uint public tsupply = 0;
+
+  mapping(address => uint) public balances;
+       
+  function mint (address add, uint val) public {
+      if(val<500){
+          revert("VALUE SHOULD BE GREATER THAN 500");
+      }
+      assert(val>700);  
+      tsupply += val;
+      balances[add] += val;
+    }
+
+  function burn (address add, uint val) public {
+     require(balances[add]>= val, "INSUFFICIENT FUNDS TO BURN");
+    { 
+      tsupply -= val;
+      balances[add] -= val;
+     }    
     }
 }
 
-```
+To compile the code, click on the "Solidity Compiler" tab in the left-hand sidebar.
 
-To compile the code, click on the "Solidity Compiler" tab in the left-hand sidebar. Make sure the "Compiler" option is set to "0.8.4" (or another compatible version), and then click on the "Compile HelloWorld.sol" button.
+Once the code is compiled, you can deploy the contract by clicking on the "Deploy & Run Transactions" tab in the left-hand sidebar. Now you can perform different operations and this will show error and display the given message and show the user why this error is happening.
 
-Once the code is compiled, you can deploy the contract by clicking on the "Deploy & Run Transactions" tab in the left-hand sidebar. Select the "HelloWorld" contract from the dropdown menu, and then click on the "Deploy" button.
 
-Once the contract is deployed, you can interact with it by calling the sayHello function. Click on the "HelloWorld" contract in the left-hand sidebar, and then click on the "sayHello" function. Finally, click on the "transact" button to execute the function and retrieve the "Hello World!" message.
 
 ## Authors
 
-Metacrafter Chris  
-[@metacraftersio](https://twitter.com/metacraftersio)
+Sudhanshu Shekhar
+[@sudhanshu5788]
 
-
-## License
-
-This project is licensed under the MIT License - see the LICENSE.md file for details
